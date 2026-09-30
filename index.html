@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UJJWAL THE WORLD - Secure Dashboard</title>
+    <!-- Font Awesome Icons ke liye CDN link -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
+    <style>
+        /* General Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            position: relative;
+            /* Background me Dark Web cyber photo set hai */
+            background: linear-gradient(rgba(9, 13, 22, 0.88), rgba(17, 24, 39, 0.92)), 
+                        url('https://socradar.io') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Dark Web Transparent Watermark Layer */
+        body::before {
+            content: "DARK WEB SECURE // SYSTEM ONLINE // INTERNAL PORTAL // SYSTEM COMPROMISED // STATUS: ACTIVE // 0x7F8C9D // REPLICATED NET // ACCESS DECLARED // UJJWAL SHIVAM SECURE METRIC";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            font-weight: 900;
+            color: rgba(0, 255, 170, 0.04); 
+            padding: 20px;
+            word-wrap: break-word;
+            line-height: 2.2;
+            letter-spacing: 4px;
+            pointer-events: none; 
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        /* 1. Login Panel Style */
+        .login-box {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(15px);
+            border: 2px solid #00ffcc;
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+            z-index: 10;
+        }
+
+        .login-box h2 {
+            font-size: 26px;
+            color: #00ffcc;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #00ffcc;
+            color: #090d16;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #02ccaa;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+        }
+
+        .error-msg {
+            color: #ea4335;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        /* 2. Main Dashboard Style */
+        .main-dashboard {
+            display: none; 
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px 0;
+            z-index: 10;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Profile Image Container */
+        .profile-img-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 4px solid #00ffcc;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 10%; /* White background face photo ko align krne k liye */
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: #f8fafc;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #00ffcc;
+            font-weight: 500;
+        }
+
+        /* Full Display Links Grid (Ek Line Me Do-Do) */
+        .links-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px; 
+            padding: 10px;
+        }
+
+        /* Single Link Style */
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 22px 20px; 
+            border-radius: 16px;
+            text-decoration: none;
+            color: white !important;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-btn i {
+            font-size: 24px;
+        }
+
+        /* Hover Behavior */
+        .social-btn:hover {
+            transform: translateY(-5px);
+            filter: brightness(1.15);
+        }
+
+        /* Sabhi Brands Ke Colors */
+        .google { background-color: #4285f4; box-shadow: 0 5px 15px rgba(66, 133, 244, 0.3); }
+        .gmail { background-color: #ea4335; box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3); }
+        .snapchat { background-color: #fffc00; color: #000000 !important; box-shadow: 0 5px 15px rgba(255, 252, 0, 0.2); }
+        .youtube { background-color: #ff0000; box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3); }
+        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3); }
+        .facebook { background-color: #1877f2; box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3); }
+        .twitter { background-color: #000000; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1); }
+        .linkedin { background-color: #0077b5; box-shadow: 0 5px 15px rgba(0, 119, 181, 0.3); }
+        .whatsapp { background-color: #25d366; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
+        .github { background-color: #24292e; box-shadow: 0 5px 15px rgba(36, 41, 46, 0.3); }
+
+        /* Responsive Settings */
+        @media (max-width: 600px) {
+            .links-wrapper {
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 12px;
+            }
+            .social-btn {
+                font-size: 14px;
+                padding: 16px 10px;
+                gap: 8px;
+            }
+            .social-btn i {
+                font-size: 18px;
+            }
+            h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN PANEL SECTION -->
+    <div class="login-box" id="loginBox">
+        <h2>CYBER ACCESS</h2>
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="UJJWAL daalein...">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Password daalein...">
+        </div>
+        <button class="login-btn" onclick="checkLogin()">Enter Orbit</button>
+        <div class="error-msg" id="errorMsg">⚠️ Access Denied! Galat Credentials.</div>
+    </div>
+
+    <!-- 2. MAIN DASHBOARD SECTION -->
+    <div class="main-dashboard" id="dashboardSection">
+        <!-- Header Me Profile Section -->
+        <div class="profile-header">
+            <div class="profile-img-container">
+                <!-- 🆕 Yahan aapki naye white background wali photo ka working link add ho gya hai -->
+                <img src="https://prodia.technology" alt="Ujjwal Shivam">
+            </div>
+            <h1>UJJWAL THE WORLD</h1>
+            <p>@UJJWAL_SHIVAM</p>
+        </div>
+
+        <!-- Full Screen Links Wrapper -->
+        <div class="links-wrapper">
+            <a href="https://google.com" target="_blank" class="social-btn google"><i class="fa-brands fa-google"></i> Google</a>
+            <a href="mailto:aapkamail@gmail.com" target="_blank" class="social-btn gmail"><i class="fa-solid fa-envelope"></i> Gmail</a>
+            <a href="https://snapchat.com" target="_blank" class="social-btn snapchat"><i class="fa-brands fa-snapchat"></i> Snapchat</a>
+            <a href="https://youtube.com" target="_blank" class="social-btn youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
+            <a href="https://instagram.com" target="_blank" class="social-btn instagram"><i class="fa-brands fa-instagram"></i> Instagram</a>
